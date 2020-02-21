@@ -785,7 +785,7 @@ class plugin {
 						throw new Exception(__('Vous devez attendre au moins 45 secondes entre deux lancements du démon. Dernier lancement : ', __FILE__) . date("Y-m-d H:i:s", $info['datetime']));
 					}
 					if (config::byKey('deamonRestartNumber', $plugin_id, 0) > 3) {
-						log::add($plugin_id, 'error', __('Attention je pense qu\'il y a un soucis avec le démon que j\'ai relancé plus de 3 fois consécutivement', __FILE__));
+						log::add($plugin_id, 'error', __('Attention je pense qu\'il y a un souci avec le démon que j\'ai relancé plus de 3 fois consécutivement', __FILE__));
 					}
 					if (!$_forceRestart) {
 						config::save('deamonRestartNumber', config::byKey('deamonRestartNumber', $plugin_id, 0) + 1, $plugin_id);
