@@ -119,7 +119,7 @@ try {
 		unautorizedInDemo();
 		$user = user::byId(init('id'));
 		if (!is_object($user)) {
-			throw new Exception('User ID inconnu');
+			throw new Exception(__('User ID inconnu', __FILE__));
 		}
 		$user->setOptions('twoFactorAuthentification', 0);
 		$user->save();
@@ -194,7 +194,7 @@ try {
 		}
 		$user = user::byId(init('id'));
 		if (!is_object($user)) {
-			throw new Exception('User ID inconnu');
+		    throw new Exception(__('User ID inconnu', __FILE__));
 		}
 		$user->remove();
 		ajax::success();
@@ -204,7 +204,7 @@ try {
 		unautorizedInDemo();
 		$user_json = jeedom::fromHumanReadable(json_decode(init('profils'), true));
 		if (isset($user_json['id']) && $user_json['id'] != $_SESSION['user']->getId()) {
-			throw new Exception('401 - Accès non autorisé');
+			throw new Exception(__('401 - Accès non autorisé', __FILE__);
 		}
 		@session_start();
 		$_SESSION['user']->refresh();

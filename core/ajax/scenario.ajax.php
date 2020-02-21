@@ -131,7 +131,7 @@ try {
 	if (init('action') == 'loadTemplateDiff') {
 		$path = __DIR__ . '/../../data/scenario';
 		if (!file_exists($path . '/' . init('template'))) {
-			throw new Exception('Fichier non trouvé : ' . $path . '/' . init('template'));
+			throw new Exception( __('Fichier non trouvé : ' . $path . '/' . init('template'), __FILE__));
 		}
 		$return = array();
 		foreach (preg_split("/((\r?\n)|(\r\n?))/", file_get_contents($path . '/' . init('template'))) as $line) {
@@ -178,7 +178,7 @@ try {
 		unautorizedInDemo();
 		$path = __DIR__ . '/../../data/scenario';
 		if (!file_exists($path . '/' . init('template'))) {
-			throw new Exception('Fichier non trouvé : ' . $path . '/' . init('template'));
+			throw new Exception( __('Fichier non trouvé : ' . $path . '/' . init('template'), __FILE__));
 		}
 		foreach (json_decode(init('convert'), true) as $value) {
 			if (trim($value['end']) == '') {
@@ -444,7 +444,7 @@ try {
 		}
 		$extension = strtolower(strrchr($_FILES['file']['name'], '.'));
 		if (!in_array($extension, array('.json'))) {
-			throw new Exception('Extension du fichier non valide (autorisé .json) : ' . $extension);
+			throw new Exception(__('Extension du fichier non valide (autorisé .json) : ' . $extension, __FILE__);
 		}
 		if (filesize($_FILES['file']['tmp_name']) > 10000000) {
 			throw new Exception(__('Le fichier est trop gros (maximum 10Mo)', __FILE__));
