@@ -653,23 +653,23 @@ function date_fr($date_en) {
 		$texte_long = array(
 			'Lundi', 'Mardi', 'Mercredi', 'Jeudi',
 			'Vendredi', 'Samedi', 'Dimanche', 'Janvier',
-			'FÃ©vrier', 'Mars', 'Avril', 'Mai',
-			'Juin', 'Juillet', 'AoÃ»t', 'Septembre',
-			'Octobre', 'Novembre', 'DÃ©cembre',
+			'Février', 'Mars', 'Avril', 'Mai',
+			'Juin', 'Juillet', 'Août', 'Septembre',
+			'Octobre', 'Novembre', 'Décembre',
 		);
 		$texte_short_day = array(
 			'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'
 		);
 		$texte_short_month = array(
-			'Janv.', 'FÃ©vr.', 'Mars', 'Avril', 'Mai', 'Juin',
-			'Juil.', 'AoÃ»t', 'Sept.', 'Oct.', 'Nov.', 'DÃ©c.',
+			'Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin',
+			'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.',
 		);
 		break;
 		case 'de_DE':
 		$texte_long = array(
 			'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag',
 			'Freitag', 'Samstag', 'Sonntag', 'Januar',
-			'Februar', 'MÃ¤rz', 'April', 'May',
+			'Februar', 'März', 'April', 'May',
 			'Juni', 'July', 'August', 'September',
 			'October', 'November', 'December',
 		);
@@ -1003,12 +1003,12 @@ function minify($_buffer) {
 
 function sanitizeAccent($_message) {
 	$caracteres = array(
-		'Ã€' => 'a', 'Ã�' => 'a', 'Ã‚' => 'a', 'Ã„' => 'a', 'Ã ' => 'a', 'Ã¡' => 'a', 'Ã¢' => 'a', 'Ã¤' => 'a', '@' => 'a',
-		'Ãˆ' => 'e', 'Ã‰' => 'e', 'ÃŠ' => 'e', 'Ã‹' => 'e', 'Ã¨' => 'e', 'Ã©' => 'e', 'Ãª' => 'e', 'Ã«' => 'e', 'â‚¬' => 'e',
-		'ÃŒ' => 'i', 'Ã�' => 'i', 'ÃŽ' => 'i', 'Ã�' => 'i', 'Ã¬' => 'i', 'Ã­' => 'i', 'Ã®' => 'i', 'Ã¯' => 'i',
-		'Ã’' => 'o', 'Ã“' => 'o', 'Ã”' => 'o', 'Ã–' => 'o', 'Ã²' => 'o', 'Ã³' => 'o', 'Ã´' => 'o', 'Ã¶' => 'o',
-		'Ã™' => 'u', 'Ãš' => 'u', 'Ã›' => 'u', 'Ãœ' => 'u', 'Ã¹' => 'u', 'Ãº' => 'u', 'Ã»' => 'u', 'Ã¼' => 'u', 'Âµ' => 'u',
-		'Å’' => 'oe', 'Å“' => 'oe',
+	    'À' => 'a', 'Á' => 'a', 'Â' => 'a', 'Ä' => 'a', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ä' => 'a', '@' => 'a',
+	    'È' => 'e', 'É' => 'e', 'Ê' => 'e', 'Ë' => 'e', 'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', '€' => 'e',
+	    'Ì' => 'i', 'Í' => 'i', 'Î' => 'i', 'Ï' => 'i', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i',
+	    'Ò' => 'o', 'Ó' => 'o', 'Ô' => 'o', 'Ö' => 'o', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'ö' => 'o',
+	    'Ù' => 'u', 'Ú' => 'u', 'Û' => 'u', 'Ü' => 'u', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ü' => 'u', 'µ' => 'u',
+	    'Œ' => 'oe', 'œ' => 'oe',
 		'$' => 's');
 		return preg_replace('#[^A-Za-z0-9 \n\.\'=\*:]+\#\)\(#', '', strtr($_message, $caracteres));
 	}
@@ -1117,7 +1117,7 @@ function sanitizeAccent($_message) {
 	
 	function arg2array($_string) {
 		$return = array();
-		$re = '/[\/-]?(([a-zA-Z0-9Ã¡Ã Ã¢Ã¤Ã£Ã¥Ã§Ã©Ã¨ÃªÃ«Ã­Ã¬Ã®Ã¯Ã±Ã³Ã²Ã´Ã¶ÃµÃºÃ¹Ã»Ã¼Ã½Ã¿Ã¦Å“_#]+)(?:[=:]("[^"]+"|[^\s"]+))?)(?:\s+|$)/';
+		$re = '/[\/-]?(([a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ_#]+)(?:[=:]("[^"]+"|[^\s"]+))?)(?:\s+|$)/';
 		preg_match_all($re, $_string, $matches, PREG_SET_ORDER, 0);
 		foreach ($matches as $match) {
 			if (count($match) != 4) {
@@ -1410,7 +1410,7 @@ function sanitizeAccent($_message) {
 	function pageTitle($_page){
 		switch ($_page) {
 			case 'overview':
-			$return = __('SynthÃ¨se',__FILE__);
+			$return = __('Synthèse',__FILE__);
 			break;
 			case 'view':
 			$return = __('Vues',__FILE__);
@@ -1425,7 +1425,7 @@ function sanitizeAccent($_message) {
 			$return = __('Equipements',__FILE__);
 			break;
 			case 'display':
-			$return = __('RÃ©sumÃ©',__FILE__);
+			$return = __('Résumé',__FILE__);
 			break;
 			case 'history':
 			$return = __('Historique',__FILE__);
@@ -1434,13 +1434,13 @@ function sanitizeAccent($_message) {
 			$return = __('Rapports',__FILE__);
 			break;
 			case 'health':
-			$return = __('SantÃ©',__FILE__);
+			$return = __('Santé',__FILE__);
 			break;
 			case 'object':
 			$return = __('Objets',__FILE__);
 			break;
 			case 'scenario':
-			$return = __('ScÃ©narios',__FILE__);
+			$return = __('Scénarios',__FILE__);
 			break;
 			case 'interact':
 			$return = __('Interactions',__FILE__);
@@ -1458,7 +1458,7 @@ function sanitizeAccent($_message) {
 			$return = __('Sauvegardes',__FILE__);
 			break;
 			case 'cron':
-			$return = __('Moteur de tÃ¢ches',__FILE__);
+			$return = __('Moteur de tâches',__FILE__);
 			break;
 			case 'custom':
 			$return = __('Personnalisation',__FILE__);
@@ -1467,13 +1467,13 @@ function sanitizeAccent($_message) {
 			$return = __('Utilisateurs',__FILE__);
 			break;
 			case 'profils':
-			$return = __('PrÃ©fÃ©rences',__FILE__);
+			$return = __('Préférences',__FILE__);
 			break;
 			case 'log':
 			$return = __('Logs',__FILE__);
 			break;
 			case 'update':
-			$return = __('Mises Ã  jour',__FILE__);
+			$return = __('Mises à jour',__FILE__);
 			break;
 			case 'panel':
 			try {
