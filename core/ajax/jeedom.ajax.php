@@ -231,7 +231,7 @@ try {
 		}
 		$extension = strtolower(strrchr($_FILES['file']['name'], '.'));
 		if (!in_array($extension, array('.gz'))) {
-		    throw new Exception(__('Extension du fichier non valide (autorisé .tar.gz) : ' . $extension, __FILE__));
+			throw new Exception('Extension du fichier non valide (autorisé .tar.gz) : ' . $extension);
 		}
 		if (filesize($_FILES['file']['tmp_name']) > 1000000000) {
 			throw new Exception(__('Le fichier est trop gros (maximum 1Go)', __FILE__));
@@ -371,7 +371,7 @@ try {
 		}
 		$extension = strtolower(strrchr($_FILES['file']['name'], '.'));
 		if (!in_array($extension, array('.jpg', '.png','.gif'))) {
-			throw new Exception(__('Extension du fichier non valide (autorisé .jpg .png .gif) : ' . $extension, __FILE__));
+			throw new Exception('Extension du fichier non valide (autorisé .jpg .png .gif) : ' . $extension);
 		}
 		if (filesize($_FILES['file']['tmp_name']) > 5000000) {
 			throw new Exception(__('Le fichier est trop gros (maximum 5Mo)', __FILE__));
