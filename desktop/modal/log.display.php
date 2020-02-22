@@ -16,7 +16,7 @@
 */
 
 if (!isConnect('admin')) {
-	throw new Exception('401 Unauthorized');
+    throw new Exception(__('401 Accès non autorisé', __FILE__));
 }
 sendVarToJS('log_display_name', init('log', 'event'));
 sendVarToJS('log_default_search', init('search', ''));

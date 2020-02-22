@@ -16,7 +16,7 @@
 */
 
 if (!isConnect('admin')) {
-	throw new Exception('401 Unauthorized');
+	throw new Exception(__('401 Accès non autorisé', __FILE__));
 }
 sendVarToJS('prerenderGraph', config::byKey('graphlink::prerender', 'core', 10));
 sendVarToJS('renderGraph', config::byKey('graphlink::render', 'core', 3000));

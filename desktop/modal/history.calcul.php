@@ -16,8 +16,7 @@
 */
 
 if (!isConnect()) {
-	throw new Exception('401 Unauthorized');
-}
+	throw new Exception(__('401 Accès non autorisé', __FILE__));}
 ?>
 <div id="div_alertHistoryCalcul"></div>
 <span class="label label-info" id="span_lastUpdateCheck"></span>
