@@ -758,7 +758,7 @@ try {
 	if ($jsonrpc->getMethod() == 'cmd::getStatistique') {
 		$cmd = cmd::byId($params['id']);
 		if (!is_object($cmd)) {
-			throw new Exception('Commande introuvable : ' . secureXSS($params['id']), -32702);
+		    throw new Exception(__('Commande introuvable : ', __FILE__) . secureXSS($params['id']), -32702);
 		}
 		if (is_object($_USER_GLOBAL) && !$cmd->hasRight($_USER_GLOBAL)) {
 			throw new Exception(__('Vous n\'avez pas les droits sur cette commande', __FILE__), -32701);
@@ -769,7 +769,7 @@ try {
 	if ($jsonrpc->getMethod() == 'cmd::getTendance') {
 		$cmd = cmd::byId($params['id']);
 		if (!is_object($cmd)) {
-			throw new Exception('Commande introuvable : ' . secureXSS($params['id']), -32702);
+			throw new Exception(__('Commande introuvable : ' . secureXSS($params['id'], __FILE__)), -32702);
 		}
 		if (is_object($_USER_GLOBAL) && !$cmd->hasRight($_USER_GLOBAL)) {
 			throw new Exception(__('Vous n\'avez pas les droits sur cette commande', __FILE__), -32701);
@@ -780,7 +780,7 @@ try {
 	if ($jsonrpc->getMethod() == 'cmd::getHistory') {
 		$cmd = cmd::byId($params['id']);
 		if (!is_object($cmd)) {
-			throw new Exception('Commande introuvable : ' . secureXSS($params['id']), -32702);
+			throw new Exception(__('Commande introuvable : ' . secureXSS($params['id'], __FILE__)), -32702);
 		}
 		if (is_object($_USER_GLOBAL) && !$cmd->hasRight($_USER_GLOBAL)) {
 			throw new Exception(__('Vous n\'avez pas les droits sur cette commande', __FILE__), -32701);
@@ -815,7 +815,7 @@ try {
 	if ($jsonrpc->getMethod() == 'cmd::event') {
 		$cmd = cmd::byId($params['id']);
 		if (!is_object($cmd)) {
-			throw new Exception('Commande introuvable : ' . secureXSS($params['id']), -32702);
+		    throw new Exception(__('Commande introuvable : ' . secureXSS($params['id'], __FILE__)), -32702);
 		}
 		if (is_object($_USER_GLOBAL) && !$cmd->hasRight($_USER_GLOBAL)) {
 			throw new Exception(__('Vous n\'avez pas les droits sur cette commande', __FILE__), -32701);

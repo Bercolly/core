@@ -51,7 +51,7 @@ try {
 		mkdir($backup_dir, 0770, true);
 	}
 	if (!is_writable($backup_dir)) {
-		throw new Exception('Impossible d\'accéder au dossier de sauvegarde. Veuillez vérifier les droits : ' . $backup_dir);
+	    throw new Exception(__('Impossible d\'accéder au dossier de sauvegarde. Veuillez vérifier les droits : ', __FILE__) . $backup_dir);
 	}
 	$replace_name = array(
 		'&' => '',
@@ -93,7 +93,7 @@ try {
 		}
 	}
 	if (file_exists($jeedom_dir . "/DB_backup.sql")) {
-		throw new Exception('Impossible de supprimer la sauvegarde de la base de données. Vérifiez les droits');
+	    throw new Exception(__('Impossible de supprimer la sauvegarde de la base de données. Vérifiez les droits', __FILE__));
 	}
 	if(isset($CONFIG['db']['unix_socket'])) {
 		system("mysqldump --socket=" . $CONFIG['db']['unix_socket'] . " --user=" . $CONFIG['db']['username'] . " --password='" . $CONFIG['db']['password'] . "' " . $CONFIG['db']['dbname'] . "  > " . $jeedom_dir . "/DB_backup.sql", $rc);
@@ -101,10 +101,10 @@ try {
 		system("mysqldump --host=" . $CONFIG['db']['host'] . " --port=" . $CONFIG['db']['port'] . " --user=" . $CONFIG['db']['username'] . " --password='" . $CONFIG['db']['password'] . "' " . $CONFIG['db']['dbname'] . "  > " . $jeedom_dir . "/DB_backup.sql", $rc);
 	}
 	if ($rc != 0) {
-		throw new Exception('Echec durant la sauvegarde de la base de données. Vérifiez que mysqldump est présent. Code retourné : ' . $rc);
+	    throw new Exception(__('Echec durant la sauvegarde de la base de données. Vérifiez que mysqldump est présent. Code retourné : ', __FILE__) . $rc);
 	}
 	if (filemtime($jeedom_dir . "/DB_backup.sql") < (strtotime('now') - 1200)) {
-		throw new Exception('Echec durant la sauvegarde de la base de données. Date du fichier de sauvegarde de la base trop vieux. Vérifiez les droits');
+	    throw new Exception(__('Echec durant la sauvegarde de la base de données. Date du fichier de sauvegarde de la base trop vieux. Vérifiez les droits', __FILE__));
 	}
 	echo "OK" . "\n";
 	
@@ -144,7 +144,7 @@ try {
 	echo "OK" . "\n";
 	
 	if (!file_exists($backup_dir . '/' . $backup_name)) {
-		throw new Exception('Echec du backup. Impossible de trouver : ' . $backup_dir . '/' . $backup_name);
+	    throw new Exception(__('Echec du backup. Impossible de trouver : ', __FILE__) . $backup_dir . '/' . $backup_name);
 	}
 	
 	echo 'Nettoyage de l\'ancienne sauvegarde...';

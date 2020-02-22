@@ -4,7 +4,7 @@ if (!isConnect('admin')) {
 }
 $scenario = scenario::byId(init('scenario_id'));
 if (!is_object($scenario)) {
-	throw new Exception('Scénario non trouvé : ' . init('scenario_id'));
+    throw new Exception(__('Scénario non trouvé : ', __FILE__) . init('scenario_id'));
 }
 sendVarToJS('scenario_template_id', init('scenario_id'));
 ?>

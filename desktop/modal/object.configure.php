@@ -4,7 +4,7 @@ if (!isConnect('admin')) {
 }
 $object = jeeObject::byId(init('object_id'));
 if (!is_object($object)) {
-	throw new Exception('Objet non trouvé : ' . init('object_id'));
+    throw new Exception(__('Objet non trouvé : ', __FILE__) . init('object_id'));
 }
 sendVarToJS('objectInfo', utils::o2a($object));
 ?>

@@ -58,7 +58,7 @@ try {
 				}
 			}
 			if (!login(init('username'), init('password'), init('twoFactorCode'))) {
-				throw new Exception('Mot de passe ou nom d\'utilisateur incorrect');
+			    throw new Exception(__('Mot de passe ou nom d\'utilisateur incorrect', __FILE__));
 			}
 		}
 		
@@ -88,7 +88,7 @@ try {
 	
 	if (init('action') == 'getApikey') {
 		if (!login(init('username'), init('password'), init('twoFactorCode'))) {
-			throw new Exception('Mot de passe ou nom d\'utilisateur incorrect');
+		    throw new Exception(__('Mot de passe ou nom d\'utilisateur incorrect', __FILE__));
 		}
 		ajax::success($_SESSION['user']->getHash());
 	}

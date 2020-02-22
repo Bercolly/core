@@ -61,12 +61,12 @@ class plugin {
 		}
 		if (!file_exists($path)) {
 			self::forceDisablePlugin($_id);
-			throw new Exception('Plugin introuvable : ' . $_id);
+			throw new Exception(__('Plugin introuvable : ', __FILE__) . $_id);
 		}
 		$data = json_decode(file_get_contents($path), true);
 		if (!is_array($data)) {
 			self::forceDisablePlugin($_id);
-			throw new Exception('Plugin introuvable (json invalide) : ' . $_id . ' => ' . print_r($data, true));
+			throw new Exception(__('Plugin introuvable (json invalide)', __FILE__) . ' : ' . $_id . ' => ' . print_r($data, true));
 		}
 		$plugin = new plugin();
 		$plugin->id = $data['id'];
@@ -914,10 +914,10 @@ class plugin {
 	
 	public function launch($_function, $_callInstallFunction = false) {
 		if ($_function == '') {
-			throw new Exception('La fonction à lancer ne peut être vide');
+		    throw new Exception(__('La fonction à lancer ne peut être vide', __FILE__));
 		}
 		if (!$_callInstallFunction && (!class_exists($this->getId()) || !method_exists($this->getId(), $_function))) {
-			throw new Exception('Il n\'existe aucune méthode : ' . $this->getId() . '::' . $_function . '()');
+		    throw new Exception(__('Il n\'existe aucune méthode : ' , __FILE__) . $this->getId() . '::' . $_function . '()');
 		}
 		$cmd = __DIR__ . '/../../core/php/jeePlugin.php ';
 		$cmd .= ' plugin_id=' . $this->getId();

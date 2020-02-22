@@ -10,7 +10,7 @@ if (init('logicalId') != '' && init('type') != '') {
 	$market = repo_market::byLogicalIdAndType(init('logicalId'), init('type'));
 }
 if (!isset($market)) {
-	throw new Exception('404 not found');
+    throw new Exception(__('404 non trouvé', __FILE__));
 }
 include_file('3rdparty', 'bootstrap.rating/bootstrap.rating', 'js');
 include_file('3rdparty', 'slick/slick.min', 'js');

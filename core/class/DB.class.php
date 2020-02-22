@@ -206,7 +206,7 @@ class DB {
 	
 	public static function refresh($object) {
 		if (!self::getField($object, 'id')) {
-			throw new Exception('DB ne peut rafraîchir l\'objet sans son ID');
+			throw new Exception(__('DB ne peut rafraîchir l\'objet sans son ID', __FILE__));
 		}
 		$parameters = array('id' => self::getField($object, 'id'));
 		$sql = 'SELECT ' . self::buildField(get_class($object)) .
@@ -228,7 +228,7 @@ class DB {
 			$reflection = self::getReflectionClass($object);
 			$property = $reflection->getProperty($field);
 			if (!$reflection->hasProperty($field)) {
-				throw new InvalidArgumentException('Unknown field ' . get_class($object) . '::' . $field);
+			    throw new InvalidArgumentException(__('Champ inconnu ', __FILE__) . get_class($object) . '::' . $field);
 			}
 			$property->setAccessible(true);
 			$property->setValue($object, self::getField($newObject, $field));
@@ -401,7 +401,7 @@ class DB {
 			}
 		}
 		if (empty(self::$fields[$table])) {
-			throw new RuntimeException('No fields found for class ' . get_class($object));
+		    throw new RuntimeException(__('Aucun champ trouvé pour la class ', __FILE__) . get_class($object));
 		}
 		return self::$fields[$table];
 	}
@@ -421,7 +421,7 @@ class DB {
 		} else {
 			$reflection = self::getReflectionClass($object);
 			if ($reflection->hasProperty($field)) {
-				throw new InvalidArgumentException('Unknown field ' . get_class($object) . '::' . $field);
+			    throw new InvalidArgumentException(__('Champ inconnu ', __FILE__) . get_class($object) . '::' . $field);
 			}
 			$property = $reflection->getProperty($field);
 			$property->setAccessible(true);

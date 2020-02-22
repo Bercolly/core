@@ -4,7 +4,7 @@ if (!isConnect('admin')) {
 }
 $eqLogic = eqLogic::byId(init('eqLogic_id'));
 if (!is_object($eqLogic)) {
-	throw new Exception('EqLogic non trouvé : ' . init('eqLogic_id'));
+    throw new Exception(__('EqLogic non trouvé : ', __FILE__) . init('eqLogic_id'));
 }
 
 sendVarToJS('eqLogicInfo', utils::o2a($eqLogic));

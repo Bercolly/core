@@ -5,7 +5,7 @@ if (!isConnect('admin')) {
 
 $plan3dHeader = plan3dHeader::byId(init('plan3dHeader_id'));
 if (!is_object($plan3dHeader)) {
-	throw new Exception('Impossible de trouver le plan');
+    throw new Exception(__('Impossible de trouver le plan', __FILE__));
 }
 sendVarToJS('id', $plan3dHeader->getId());
 sendVarToJS('plan3dHeader', utils::o2a($plan3dHeader));
@@ -66,7 +66,7 @@ sendVarToJS('plan3dHeader', utils::o2a($plan3dHeader));
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-lg-4 control-label">{{Puissance eclairage général (0.4 defaut)}}</label>
+						<label class="col-lg-4 control-label">{{Puissance éclairage général (0.4 defaut)}}</label>
 						<div class="col-lg-2">
 							<input type="number" min="0" step="0.1" class="plan3dHeaderAttr form-control" data-l1key="configuration" data-l2key="globalLightPower" />
 						</div>

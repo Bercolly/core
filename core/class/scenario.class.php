@@ -884,7 +884,7 @@ class scenario {
 						$this->setTimeout(0);
 					}
 					if ($this->getName() == '') {
-						throw new Exception('Le nom du scénario ne peut pas être vide.');
+					    throw new Exception(__('Le nom du scénario ne peut pas être vide.', __FILE__));
 					}
 					if (($this->getMode() == 'schedule' || $this->getMode() == 'all') && $this->getSchedule() == '') {
 						throw new Exception(__('Le scénario est de type programmé mais la programmation est vide', __FILE__));

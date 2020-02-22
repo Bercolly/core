@@ -111,7 +111,7 @@ try {
 					echo "Download url : " . $url . "\n";
 					echo "Download in progress...";
 					if (!is_writable($tmp_dir)) {
-						throw new Exception('Can not write : ' . $tmp . '. Please execute : chmod 777 -R ' . $tmp_dir);
+					    throw new Exception(__('Impossible d\'écrire : ', __FILE__) . $tmp . '.' . __('Exécuter ', __FILE__) . ': chmod 777 -R ' . $tmp_dir);
 					}
 					if (file_exists($tmp)) {
 						unlink($tmp);
@@ -120,19 +120,19 @@ try {
 				} else {
 					$class = 'repo_' . config::byKey('core::repo::provider');
 					if (!class_exists($class)) {
-						throw new Exception('Unable to find repo class : ' . $class);
+					    throw new Exception(__('Impossible de trouver la class repo : ', __FILE__) . $class);
 					}
 					if (!method_exists($class, 'downloadCore')) {
-						throw new Exception('Unable to find method : ' . $class . '::downloadCore');
+					    throw new Exception(__('Impossible de trouver la mèthode : ', __FILE__) . $class . '::downloadCore');
 					}
 					if (config::byKey(config::byKey('core::repo::provider') . '::enable') != 1) {
-						throw new Exception('Repo is disable : ' . $class);
+					    throw new Exception(__('Repo est désactivé : ', __FILE__) . $class);
 					}
 					$class::downloadCore($tmp);
 				}
 				echo "[PROGRESS][25]\n";
 				if (filesize($tmp) < 100) {
-					throw new Exception('Download failed please retry later');
+				    throw new Exception(__('Le téléchargement a echoué, recommencer plus tard', __FILE__));
 				}
 				echo "OK\n";
 				echo "Cleaning folders...";
@@ -144,7 +144,7 @@ try {
 				echo "[PROGRESS][30]\n";
 				echo "Create temporary folder...";
 				if (!file_exists($cibDir) && !mkdir($cibDir, 0777, true)) {
-					throw new Exception('Can not write into  : ' . $cibDir . '.');
+				    throw new Exception(__('Impossible d\'écrire dans  : ', __FILE__) . $cibDir . '.');
 				}
 				echo "OK\n";
 				echo "[PROGRESS][35]\n";
@@ -152,11 +152,11 @@ try {
 				$zip = new ZipArchive;
 				if ($zip->open($tmp) === TRUE) {
 					if (!$zip->extractTo($cibDir)) {
-						throw new Exception('Can not unzip file');
+					    throw new Exception(__('Unzip erreur de l\'archive', __FILE__));
 					}
 					$zip->close();
 				} else {
-					throw new Exception('Unable to unzip file : ' . $tmp);
+				    throw new Exception(__('Unzip erreur de l\'archive : ', __FILE__) . $tmp);
 				}
 				echo "OK\n";
 				echo "[PROGRESS][40]\n";
@@ -171,10 +171,10 @@ try {
 					echo "Update updater...";
 					rmove($cibDir . '/install/update.php', __DIR__ . '/update.php', false, array(), array('log' => true, 'ignoreFileSizeUnder' => 1));
 					echo "OK\n";
-					echo "Remove temporary files...";
+					echo __("Suppression des fichiers temporaires ...", __FILE__);
 					rrmdir($tmp_dir);
 					echo "OK\n";
-					echo "Wait 10s before relaunch update\n";
+					echo __("Attendre 10s avant de relancer la mise à jour\n", __FILE__);
 					sleep(10);
 					$_GET['preUpdate'] = 0;
 					jeedom::update($_GET);
@@ -182,7 +182,7 @@ try {
 					die();
 				}
 				try {
-					echo 'Clean temporary files (tmp)...';
+				    echo __('Nettoyage des fichiers temporaires (tmp)...', __FILE__);
 					shell_exec('rm -rf ' . __DIR__ . '/../install/update/*');
 					shell_exec('rm -rf ' . __DIR__ . '/../doc');
 					shell_exec('rm -rf ' . __DIR__ . '/../docs');
@@ -195,13 +195,13 @@ try {
 				}
 				jeedom::stop();
 				echo "[PROGRESS][45]\n";
-				echo "Moving files...";
+				echo __("Déplacement des fichiers ...", __FILE__);
 				$update_begin = true;
 				$file_copy = array();
 				rmove($cibDir . '/', __DIR__ . '/../', false, array(), true, array('log' => true, 'ignoreFileSizeUnder' => 1),$file_copy);
 				echo "OK\n";
 				echo "[PROGRESS][50]\n";
-				echo "Remove temporary files...";
+				echo __("Effacement des fichiers temporaires ...", __FILE__);
 				rrmdir($tmp_dir);
 				try {
 					shell_exec('rm -rf ' . __DIR__ . '/../tests');
@@ -212,9 +212,9 @@ try {
 				}
 				echo "OK\n";
 				echo "[PROGRESS][52]\n";
-				echo "Remove useless files...\n";
+				echo __("Supression des fichiers inutiles ...\n", __FILE__);
 				foreach (array('3rdparty','desktop','mobile','core','docs','install','script','vendor') as $folder) {
-					echo 'Cleaning '.$folder."\n";
+				    echo __('Nettoyage du répertoire ', __FILE__) . $folder . "\n";
 					shell_exec('find /var/www/html/'.$folder.'/* -mtime +7 -type f ! -iname "custom.*" ! -iname "common.config.php" -delete');
 				}
 				config::save('update::lastDateCore', date('Y-m-d H:i:s'));
@@ -267,14 +267,14 @@ try {
 			}
 		}
 		try {
-			echo "Check jeedom consistency...\n";
+		    echo __("Vérification de la cohérence Jeedom ...\n", __FILE__);
 			require_once __DIR__ . '/consistency.php';
 			echo "OK\n";
 		} catch (Exception $ex) {
 			echo "***ERREUR*** " . $ex->getMessage() . "\n";
 		}
 		try {
-			echo "Check update...";
+		    echo __("Vérification des mises à jour ...", __FILE__);
 			update::checkAllUpdate('core', false);
 			config::save('version', jeedom::version());
 			echo "OK\n";
@@ -285,14 +285,14 @@ try {
 	}
 	echo "[PROGRESS][75]\n";
 	if (init('plugins', 1) == 1) {
-		echo "***************Update plugins***************\n";
+	    echo "***************" . __("Mise à jour des plugins", __FILE__) . "***************\n";
 		update::updateAll();
-		echo "***************Update plugin successfully***************\n";
+		echo "***************" . __("Mise à jour des plugins terminée", __FILE__) . "***************\n";
 	}
 	echo "[PROGRESS][90]\n";
 	try {
 		message::removeAll('update', 'newUpdate');
-		echo "Check update\n";
+		echo __("Vérification des mises à jour update\n", __FILE__);
 		update::checkAllUpdate();
 		echo "OK\n";
 	} catch (Exception $ex) {
@@ -313,8 +313,8 @@ try {
 		}
 		jeedom::start();
 	}
-	echo 'Error during update : ' . $e->getMessage();
-	echo 'Details : ' . print_r($e->getTrace(), true);
+	echo __('Erreur durant la mise à jour : ', __FILE__) . $e->getMessage();
+	echo __('Details : ', __FILE__) . print_r($e->getTrace(), true);
 	echo "[END UPDATE ERROR]\n";
 	throw $e;
 }
@@ -331,13 +331,13 @@ try {
 }
 
 try {
-	echo "Send end of update event...";
+    echo __("Envoi l'événement de fin de mise à jour ...", __FILE__);
 	jeedom::event('end_update');
 	echo "OK\n";
 } catch (Exception $e) {
 	
 }
-echo "Update duration : " . (strtotime('now') - $starttime) . "s\n";
+echo __("Durée de la mise àjour : ", __FILE__) . (strtotime('now') - $starttime) . "s\n";
 echo "[END UPDATE SUCCESS]\n";
 
 function incrementVersion($_version) {

@@ -5,7 +5,7 @@ if (!isConnect('admin')) {
 
 $view = view::byId(init('view_id'));
 if (!is_object($view)) {
-	throw new Exception('Impossible de trouver la vue');
+    throw new Exception(__('Impossible de trouver la vue', __FILE__));
 }
 sendVarToJS('id', $view->getId());
 sendVarToJS('view', utils::o2a($view));

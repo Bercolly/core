@@ -62,7 +62,7 @@ function include_file($_folder, $_fn, $_type, $_plugin = '') {
 	}
 	$path = __DIR__ . '/../../' . $_folder . '/' . $_fn;
 	if (!file_exists($path)) {
-		throw new Exception('Fichier introuvable : ' . secureXSS($path), 35486);
+	    throw new Exception(__('Fichier introuvable : ', __FILE__) . secureXSS($path), 35486);
 	}
 	if ($type == 'php') {
 		if ($_type != 'class') {
@@ -653,23 +653,23 @@ function date_fr($date_en) {
 		$texte_long = array(
 			'Lundi', 'Mardi', 'Mercredi', 'Jeudi',
 			'Vendredi', 'Samedi', 'Dimanche', 'Janvier',
-			'Février', 'Mars', 'Avril', 'Mai',
-			'Juin', 'Juillet', 'Août', 'Septembre',
-			'Octobre', 'Novembre', 'Décembre',
+			'FÃ©vrier', 'Mars', 'Avril', 'Mai',
+			'Juin', 'Juillet', 'AoÃ»t', 'Septembre',
+			'Octobre', 'Novembre', 'DÃ©cembre',
 		);
 		$texte_short_day = array(
 			'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'
 		);
 		$texte_short_month = array(
-			'Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin',
-			'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.',
+			'Janv.', 'FÃ©vr.', 'Mars', 'Avril', 'Mai', 'Juin',
+			'Juil.', 'AoÃ»t', 'Sept.', 'Oct.', 'Nov.', 'DÃ©c.',
 		);
 		break;
 		case 'de_DE':
 		$texte_long = array(
 			'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag',
 			'Freitag', 'Samstag', 'Sonntag', 'Januar',
-			'Februar', 'März', 'April', 'May',
+			'Februar', 'MÃ¤rz', 'April', 'May',
 			'Juni', 'July', 'August', 'September',
 			'October', 'November', 'December',
 		);
@@ -744,11 +744,11 @@ function create_zip($source_arr, $destination, $_excludes = array()) {
 		$source_arr = array($source_arr);
 	}
 	if (!extension_loaded('zip')) {
-		throw new Exception('Extension php ZIP non chargée');
+	    throw new Exception(__('Extension php ZIP non chargée', __FILE__));
 	}
 	$zip = new ZipArchive();
 	if (!$zip->open($destination, ZIPARCHIVE::CREATE)) {
-		throw new Exception('Impossible de créer l\'archive ZIP dans le dossier de destination : ' . $destination);
+	    throw new Exception(__('Impossible de créer l\'archive ZIP dans le dossier de destination : ', __FILE__) . $destination);
 	}
 	foreach ($source_arr as $source) {
 		if (!file_exists($source)) {
@@ -965,12 +965,12 @@ function evaluate($_string) {
 	try {
 		return $GLOBALS['ExpressionLanguage']->evaluate($expr);
 	} catch (Exception $e) {
-		//log::add('expression', 'debug', '[Parser 1] Expression : ' . $_string . ' tranformé en ' . $expr . ' => ' . $e->getMessage());
+		//log::add('expression', 'debug', '[Parser 1] Expression : ' . $_string . ' tranformÃ© en ' . $expr . ' => ' . $e->getMessage());
 	}
 	try {
 		return $GLOBALS['ExpressionLanguage']->evaluate(str_replace('""', '"', $expr));
 	} catch (Exception $e) {
-		//log::add('expression', 'debug', '[Parser 2] Expression : ' . $_string . ' tranformé en ' . $expr . ' => ' . $e->getMessage());
+		//log::add('expression', 'debug', '[Parser 2] Expression : ' . $_string . ' tranformÃ© en ' . $expr . ' => ' . $e->getMessage());
 	}
 	return $_string;
 }
@@ -1003,12 +1003,12 @@ function minify($_buffer) {
 
 function sanitizeAccent($_message) {
 	$caracteres = array(
-		'À' => 'a', 'Á' => 'a', 'Â' => 'a', 'Ä' => 'a', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ä' => 'a', '@' => 'a',
-		'È' => 'e', 'É' => 'e', 'Ê' => 'e', 'Ë' => 'e', 'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', '€' => 'e',
-		'Ì' => 'i', 'Í' => 'i', 'Î' => 'i', 'Ï' => 'i', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i',
-		'Ò' => 'o', 'Ó' => 'o', 'Ô' => 'o', 'Ö' => 'o', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'ö' => 'o',
-		'Ù' => 'u', 'Ú' => 'u', 'Û' => 'u', 'Ü' => 'u', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ü' => 'u', 'µ' => 'u',
-		'Œ' => 'oe', 'œ' => 'oe',
+		'Ã€' => 'a', 'Ã�' => 'a', 'Ã‚' => 'a', 'Ã„' => 'a', 'Ã ' => 'a', 'Ã¡' => 'a', 'Ã¢' => 'a', 'Ã¤' => 'a', '@' => 'a',
+		'Ãˆ' => 'e', 'Ã‰' => 'e', 'ÃŠ' => 'e', 'Ã‹' => 'e', 'Ã¨' => 'e', 'Ã©' => 'e', 'Ãª' => 'e', 'Ã«' => 'e', 'â‚¬' => 'e',
+		'ÃŒ' => 'i', 'Ã�' => 'i', 'ÃŽ' => 'i', 'Ã�' => 'i', 'Ã¬' => 'i', 'Ã­' => 'i', 'Ã®' => 'i', 'Ã¯' => 'i',
+		'Ã’' => 'o', 'Ã“' => 'o', 'Ã”' => 'o', 'Ã–' => 'o', 'Ã²' => 'o', 'Ã³' => 'o', 'Ã´' => 'o', 'Ã¶' => 'o',
+		'Ã™' => 'u', 'Ãš' => 'u', 'Ã›' => 'u', 'Ãœ' => 'u', 'Ã¹' => 'u', 'Ãº' => 'u', 'Ã»' => 'u', 'Ã¼' => 'u', 'Âµ' => 'u',
+		'Å’' => 'oe', 'Å“' => 'oe',
 		'$' => 's');
 		return preg_replace('#[^A-Za-z0-9 \n\.\'=\*:]+\#\)\(#', '', strtr($_message, $caracteres));
 	}
@@ -1117,7 +1117,7 @@ function sanitizeAccent($_message) {
 	
 	function arg2array($_string) {
 		$return = array();
-		$re = '/[\/-]?(([a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ_#]+)(?:[=:]("[^"]+"|[^\s"]+))?)(?:\s+|$)/';
+		$re = '/[\/-]?(([a-zA-Z0-9Ã¡Ã Ã¢Ã¤Ã£Ã¥Ã§Ã©Ã¨ÃªÃ«Ã­Ã¬Ã®Ã¯Ã±Ã³Ã²Ã´Ã¶ÃµÃºÃ¹Ã»Ã¼Ã½Ã¿Ã¦Å“_#]+)(?:[=:]("[^"]+"|[^\s"]+))?)(?:\s+|$)/';
 		preg_match_all($re, $_string, $matches, PREG_SET_ORDER, 0);
 		foreach ($matches as $match) {
 			if (count($match) != 4) {
@@ -1318,7 +1318,7 @@ function sanitizeAccent($_message) {
 		$offset = 0;
 		while ($offset < strlen($_data)) {
 			if (!strstr(substr($_data, $offset), "|")) {
-				throw new Exception("invalid data, remaining: " . substr($_data, $offset));
+			    throw new Exception(__("invalid data, remaining: ", __FILE__) . substr($_data, $offset));
 			}
 			$pos = strpos($_data, "|", $offset);
 			$num = $pos - $offset;
@@ -1335,7 +1335,7 @@ function sanitizeAccent($_message) {
 		$return = array();
 		$sessions = explode("\n", com_shell::execute(system::getCmdSudo() . ' ls ' . session_save_path()));
 		if(count($sessions) > 100){
-			throw new Exception(__('Trop de session, je ne peux pas lister : ',__FILE__).count($sessions).__('. Faire, pour les nettoyer : ',__FILE__).'"sudo rm -rf '.session_save_path().';sudo mkdir '.session_save_path().';sudo chmod 777 '.session_save_path().'"');
+			throw new Exception(__('Trop de sessions, je ne peux pas lister : ',__FILE__).count($sessions).__('. Faire, pour les nettoyer : ',__FILE__).'"sudo rm -rf '.session_save_path().';sudo mkdir '.session_save_path().';sudo chmod 777 '.session_save_path().'"');
 		}
 		foreach ($sessions as $session) {
 			try {
@@ -1381,7 +1381,7 @@ function sanitizeAccent($_message) {
 			return;
 		}
 		if ($_user->getLogin() == 'demo') {
-			throw new Exception(__('Cette action n\'est pas autorisée en mode démo', __FILE__));
+			throw new Exception(__('Cette action n\'est pas autorisÃ©e en mode dÃ©mo', __FILE__));
 		}
 	}
 	
@@ -1410,7 +1410,7 @@ function sanitizeAccent($_message) {
 	function pageTitle($_page){
 		switch ($_page) {
 			case 'overview':
-			$return = __('Synthèse',__FILE__);
+			$return = __('SynthÃ¨se',__FILE__);
 			break;
 			case 'view':
 			$return = __('Vues',__FILE__);
@@ -1425,7 +1425,7 @@ function sanitizeAccent($_message) {
 			$return = __('Equipements',__FILE__);
 			break;
 			case 'display':
-			$return = __('Résumé',__FILE__);
+			$return = __('RÃ©sumÃ©',__FILE__);
 			break;
 			case 'history':
 			$return = __('Historique',__FILE__);
@@ -1434,13 +1434,13 @@ function sanitizeAccent($_message) {
 			$return = __('Rapports',__FILE__);
 			break;
 			case 'health':
-			$return = __('Santé',__FILE__);
+			$return = __('SantÃ©',__FILE__);
 			break;
 			case 'object':
 			$return = __('Objets',__FILE__);
 			break;
 			case 'scenario':
-			$return = __('Scénarios',__FILE__);
+			$return = __('ScÃ©narios',__FILE__);
 			break;
 			case 'interact':
 			$return = __('Interactions',__FILE__);
@@ -1458,7 +1458,7 @@ function sanitizeAccent($_message) {
 			$return = __('Sauvegardes',__FILE__);
 			break;
 			case 'cron':
-			$return = __('Moteur de tâches',__FILE__);
+			$return = __('Moteur de tÃ¢ches',__FILE__);
 			break;
 			case 'custom':
 			$return = __('Personnalisation',__FILE__);
@@ -1467,13 +1467,13 @@ function sanitizeAccent($_message) {
 			$return = __('Utilisateurs',__FILE__);
 			break;
 			case 'profils':
-			$return = __('Préférences',__FILE__);
+			$return = __('PrÃ©fÃ©rences',__FILE__);
 			break;
 			case 'log':
 			$return = __('Logs',__FILE__);
 			break;
 			case 'update':
-			$return = __('Mises à jour',__FILE__);
+			$return = __('Mises Ã  jour',__FILE__);
 			break;
 			case 'panel':
 			try {

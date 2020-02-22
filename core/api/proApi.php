@@ -315,7 +315,7 @@ try {
 		if ($jsonrpc->getMethod() == 'jeeObject::byId') {
 			$object = jeeObject::byId($params['id']);
 			if (!is_object($object)) {
-				throw new Exception('Objet introuvable : ' . secureXSS($params['id']), -32601);
+				throw new Exception(__('Objet introuvable : ' . secureXSS($params['id']), __FILE__), -32601);
 			}
 			$jsonrpc->makeSuccess(utils::o2a($object));
 		}
@@ -327,7 +327,7 @@ try {
 		if ($jsonrpc->getMethod() == 'jeeObject::fullById') {
 			$object = jeeObject::byId($params['id']);
 			if (!is_object($object)) {
-				throw new Exception('Objet introuvable : ' . secureXSS($params['id']), -32601);
+			    throw new Exception(__('Objet introuvable : ' . secureXSS($params['id']), __FILE__), -32601);
 			}
 			$return = utils::o2a($object);
 			$return['eqLogics'] = array();
@@ -378,7 +378,7 @@ try {
 		if ($jsonrpc->getMethod() == 'eqLogic::byId') {
 			$eqLogic = eqLogic::byId($params['id']);
 			if (!is_object($eqLogic)) {
-				throw new Exception('EqLogic introuvable : ' . secureXSS($params['id']), -32602);
+				throw new Exception(__('EqLogic introuvable : ' . secureXSS($params['id']), __FILE__), -32602);
 			}
 			$jsonrpc->makeSuccess(utils::o2a($eqLogic));
 		}
@@ -386,7 +386,7 @@ try {
 		if ($jsonrpc->getMethod() == 'eqLogic::fullById') {
 			$eqLogic = eqLogic::byId($params['id']);
 			if (!is_object($eqLogic)) {
-				throw new Exception('EqLogic introuvable : ' . secureXSS($params['id']), -32602);
+			    throw new Exception(__('EqLogic introuvable : ' . secureXSS($params['id']), __FILE__), -32602);
 			}
 			$return = utils::o2a($eqLogic);
 			$return['cmds'] = array();
@@ -544,7 +544,7 @@ try {
 		if ($jsonrpc->getMethod() == 'cmd::getHistory') {
 			$cmd = cmd::byId($params['id']);
 			if (!is_object($cmd)) {
-				throw new Exception('Commande introuvable : ' . secureXSS($params['id']), -32702);
+				throw new Exception(__('Commande introuvable : ' . secureXSS($params['id']), __FILE__), -32702);
 			}
 			$jsonrpc->makeSuccess(utils::o2a($cmd->getHistory($params['startTime'], $params['endTime'])));
 		}
@@ -557,7 +557,7 @@ try {
 		if ($jsonrpc->getMethod() == 'scenario::byId') {
 			$scenario = scenario::byId($params['id']);
 			if (!is_object($scenario)) {
-				throw new Exception('Scénario introuvable : ' . secureXSS($params['id']), -32703);
+				throw new Exception(__('Scénario introuvable : ' . secureXSS($params['id']), __FILE__), -32703);
 			}
 			$jsonrpc->makeSuccess(utils::o2a($scenario));
 		}
@@ -565,7 +565,7 @@ try {
 		if ($jsonrpc->getMethod() == 'scenario::changeState') {
 			$scenario = scenario::byId($params['id']);
 			if (!is_object($scenario)) {
-				throw new Exception('Scénario introuvable : ' . secureXSS($params['id']), -32702);
+			    throw new Exception(__('Scénario introuvable : ' . secureXSS($params['id']), __FILE__), -32703);
 			}
 			if ($params['state'] == 'stop') {
 				$jsonrpc->makeSuccess($scenario->stop());

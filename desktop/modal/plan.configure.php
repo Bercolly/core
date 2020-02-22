@@ -4,7 +4,7 @@ if (!isConnect('admin')) {
 }
 $plan = plan::byId(init('id'));
 if (!is_object($plan)) {
-	throw new Exception('Impossible de trouver le design');
+    throw new Exception(__('Impossible de trouver le design', __FILE__));
 }
 $link = $plan->getLink();
 sendVarToJS('id', $plan->getId());

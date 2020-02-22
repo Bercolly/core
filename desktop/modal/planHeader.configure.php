@@ -5,7 +5,7 @@ if (!isConnect('admin')) {
 
 $planHeader = planHeader::byId(init('planHeader_id'));
 if (!is_object($planHeader)) {
-	throw new Exception('Impossible de trouver le plan');
+    throw new Exception(__('Impossible de trouver le plan', __FILE__));
 }
 sendVarToJS('id', $planHeader->getId());
 sendVarToJS('planHeader', utils::o2a($planHeader));
@@ -151,7 +151,7 @@ $('.bt_removePlanComposant').off('click').on('click',function(){
 			$('#div_alertPlanHeaderConfigure').showAlert({message: error.message, level: 'danger'});
 		},
 		success: function () {
-			$('#div_alertPlanHeaderConfigure').showAlert({message: '{{Composant supprimée}}', level: 'success'});
+			$('#div_alertPlanHeaderConfigure').showAlert({message: '{{Composant supprimé}}', level: 'success'});
 			tr.remove();
 		}
 	});

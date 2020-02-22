@@ -418,7 +418,7 @@ class repo_market {
 			mkdir($backup_dir, 0770, true);
 		}
 		if (!is_writable($backup_dir)) {
-			throw new Exception('Impossible d\'accéder au dossier de sauvegarde. Veuillez vérifier les droits : ' . $backup_dir);
+		    throw new Exception(__('Impossible d\'accéder au dossier de sauvegarde. Veuillez vérifier les droits : ', __FILE__) . $backup_dir);
 		}
 		$restore_dir = '/tmp/jeedom_cloud_restore';
 		if (file_exists($restore_dir)) {
